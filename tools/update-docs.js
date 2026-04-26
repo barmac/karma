@@ -19,7 +19,7 @@ const success = async (pluginConfig, { nextRelease, logger }) => {
   logger.log(execSync(`git clone ${repoOrigin} .`, options))
   logger.log(execSync('npm ci', options))
   logger.log(execSync(`./sync-docs.sh "${nextRelease.gitTag}" "${docsVersion}"`, options))
-  logger.log(execSync('git push origin master', options))
+  logger.log(execSync('git push origin main', options))
 }
 
 module.exports = { success }
