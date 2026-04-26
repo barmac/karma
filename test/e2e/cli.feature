@@ -105,7 +105,7 @@ Feature: CLI
       START - Start the server / do a single run.
 
       Usage:
-        karma start [configFile]
+        karma start [configFile] [-- <clientArgs>]
 
       Positionals:
         configFile  Path to the Karma configuration file                      [string]

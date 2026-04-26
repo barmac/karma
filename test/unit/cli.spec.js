@@ -187,6 +187,28 @@ describe('cli', () => {
       expect(options.addedFiles).to.deep.equal(['a1.js', 'a2.js'])
       expect(options.changedFiles).to.deep.equal(['ch1.js', 'ch2.js'])
     })
+
+    it('should expose clientArgs via options.client.args for the start command', () => {
+      const originalArgv = process.argv
+      process.argv = ['node', 'karma.js', 'start', '--single-run', '--', '--grep', 'foo']
+      try {
+        const options = cli.processArgs({ _: [] }, { cmd: 'start' }, fsMock, pathMock)
+        expect(options.client).to.deep.equal({ args: ['--grep', 'foo'] })
+      } finally {
+        process.argv = originalArgv
+      }
+    })
+
+    it('should leave options.client untouched when no -- is present on start', () => {
+      const originalArgv = process.argv
+      process.argv = ['node', 'karma.js', 'start', '--single-run']
+      try {
+        const options = cli.processArgs({ _: [] }, { cmd: 'start' }, fsMock, pathMock)
+        expect(options.client).to.equal(undefined)
+      } finally {
+        process.argv = originalArgv
+      }
+    })
   })
 
   describe('parseClientArgs', () => {
